@@ -260,5 +260,3 @@ const TrandSection = () => {
     </div>
   );
 };
-
-export default TrandSection;
