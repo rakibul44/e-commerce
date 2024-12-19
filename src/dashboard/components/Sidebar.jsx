@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import  { useState } from "react";
 import { Link } from "react-router-dom";
 import { FaHome, FaUser, FaMapMarkerAlt } from "react-icons/fa";
 import { MdPayment, MdOutlineSupportAgent, MdOutlineMessage } from "react-icons/md";
@@ -18,6 +18,26 @@ const Sidebar = () => {
   // Menu items data
   const menuItems = [
     isAdmin && { name: "Dashboard", icon: <FaHome />, link: "/dashboard" },
+    isAdmin && { 
+      name: "Product mangement", 
+      icon: <AiOutlineProduct />, 
+      isSubMenu: true, // Flag for submenu
+      subMenu: [
+        { name: "Add Product", link: "/dashboard/add-product" },
+        { name: "Product List", link: "/dashboard/productlist" },
+      ]
+    },
+    isAdmin && { 
+      name: "Category & Brands", 
+      icon: <AiOutlineProduct />, 
+      isSubMenu: true, // Flag for submenu
+      subMenu: [
+        { name: "Categories", link: "/dashboard/categories" },
+        { name: "Add Category", link: "/dashboard/add-category" },
+        { name: "Brands ", link: "/dashboard/brands" },
+        { name: "Add Brand ", link: "/dashboard/add-brand" },
+      ]
+    },
     isAdmin && { name: "Scroll Notice", icon: <AiFillNotification />, link: "/dashboard/notice" },
     { name: "Personal Info", icon: <FaUser />, link: "/dashboard/profileupdate" },
     isAdmin && { name: "Customers", icon: <FaUserGroup />, link: "/dashboard/customer" },
@@ -28,15 +48,7 @@ const Sidebar = () => {
     { name: "Address", icon: <FaMapMarkerAlt />, link: "/dashboard/address" },
     { name: "Campaigns", icon: <GiCampingTent />, link: "/dashboard/camp" },
     { name: "Support Ticket", icon: <MdOutlineSupportAgent />, link: "/dashboard/support" },
-    isAdmin && { 
-      name: "Product Update", 
-      icon: <AiOutlineProduct />, 
-      isSubMenu: true, // Flag for submenu
-      subMenu: [
-        { name: "Add Product", link: "/dashboard/update" },
-        { name: "Product List", link: "/dashboard/productlist" },
-      ]
-    },
+
     { name: "Logout", icon: <LuLogOut />, link: "/logout" },
   ];
 

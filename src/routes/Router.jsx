@@ -10,9 +10,6 @@ import Login from "../pages/Login";
 import Register from "../pages/Register";
 import Wishlist from "../pages/Wishlist";
 import Mycart from "../pages/Mycart";
-
-import Notifications from "../pages/Notifications";
-
 import DashboardLayout from "../layout/DashboardLayout";
 import Dashboard from "../dashboard/pages/Dashboard";
 import ProfileUpdate from "../dashboard/pages/ProfileUpdate";
@@ -27,6 +24,12 @@ import Message from "../dashboard/pages/Message";
 import ScrollNotice from "../dashboard/pages/ScrollNotice";
 import ProductList from "../dashboard/pages/ProductList";
 import AddProduct from "../dashboard/pages/AddProduct";
+import Categories from "../dashboard/pages/categoryAndBrand/Categories";
+import AddCategory from "../dashboard/pages/categoryAndBrand/AddCategory";
+import EditCategory from "../dashboard/pages/categoryAndBrand/EditCategory";
+import AllBrands from "../dashboard/pages/categoryAndBrand/AllBrands";
+import AddBrand from "../dashboard/pages/categoryAndBrand/AddBrand";
+import EditBrand from "../dashboard/pages/categoryAndBrand/EditBrand";
 
 
 
@@ -123,11 +126,33 @@ const dashboardRoute = [
         element: <ProductList />
     },
     {
-        path:'update',
+        path:'add-product',
         element: <AddProduct />
     },
-    
-    
+    {
+        path:'categories',
+        element: <Categories />
+    },
+    {
+        path:'add-category',
+        element: <AddCategory />
+    },
+    {
+        path:'edit-category/:id',
+        element: <EditCategory />
+    },
+    {
+        path:'brands',
+        element: <AllBrands />
+    },
+    {
+        path:'add-brand',
+        element: <AddBrand />
+    },
+    {
+        path:'edit-brand/:id',
+        element: <EditBrand />
+    },
 ]
 
 const router = createBrowserRouter([
