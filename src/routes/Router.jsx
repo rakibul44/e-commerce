@@ -10,6 +10,9 @@ import Login from "../pages/Login";
 import Register from "../pages/Register";
 import Wishlist from "../pages/Wishlist";
 import Mycart from "../pages/Mycart";
+
+import Notifications from "../pages/Notifications";
+
 import DashboardLayout from "../layout/DashboardLayout";
 import Dashboard from "../dashboard/pages/Dashboard";
 import ProfileUpdate from "../dashboard/pages/ProfileUpdate";
