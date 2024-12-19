@@ -8,6 +8,9 @@ export default withMT({
     colors: {
       'midnight': '#101111',
       'midmorning': '#212F3C',
+      'btnbg': '#ff9800',
+      'btnbghover':'#fb8c00',
+      'inputfocus':'#ffcc80',
     },
     extend: {
       screens: {
