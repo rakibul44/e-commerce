@@ -10,7 +10,7 @@ import Login from "../pages/Login";
 import Register from "../pages/Register";
 import Wishlist from "../pages/Wishlist";
 import Mycart from "../pages/Mycart";
-import Notifications from "../pages/Notification";
+import Notifications from "../pages/Notifications";
 
 const mainRoutes = [
     {
