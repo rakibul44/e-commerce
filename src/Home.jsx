@@ -8,7 +8,7 @@ import PromotionalSection from "./components/PromotionalSection";
 import ProductSection from "./components/ProductSection";
 import Quote from "./components/Quote";
 import CustomMarquee from "./components/CustomMarquee";
-// import TrandSection from "./components/TrandSection";
+import TrandSection from "./components/TrandSection";
 
 const App = () => {
   return (
@@ -36,7 +36,7 @@ const App = () => {
       <PromotionalSection />
 
       {/* trandsection components */}
-      {/* <TrandSection /> */}
+      <TrandSection />
 
       {/* ProductSection components */}
       <ProductSection /> 

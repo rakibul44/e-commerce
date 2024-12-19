@@ -23,12 +23,6 @@ const Sidebar = () => {
     { name: "Personal Info", icon: <FaUser />, link: "/dashboard/profileupdate" },
     isAdmin && { name: "Customers", icon: <FaUserGroup />, link: "/dashboard/customer" },
     isUser && { name: "Payment Method", icon: <MdPayment />, link: "/dashboard/payment" },
-    { name: "Order", icon: <BsBoxFill />, link: "/dashboard/order" },
-    { name: "Wishlist", icon: <GiRoyalLove />, link: "/dashboard/wishcart" },
-    { name: "Messages", icon: <MdOutlineMessage />, link: "/dashboard/message" },
-    { name: "Address", icon: <FaMapMarkerAlt />, link: "/dashboard/address" },
-    { name: "Campaigns", icon: <GiCampingTent />, link: "/dashboard/camp" },
-    { name: "Support", icon: <MdOutlineSupportAgent />, link: "/dashboard/support" },
     isAdmin && { 
       name: "Product Update", 
       icon: <AiOutlineProduct />, 
@@ -38,6 +32,12 @@ const Sidebar = () => {
         { name: "Product List", link: "/dashboard/productlist" },
       ]
     },
+    { name: "Order", icon: <BsBoxFill />, link: "/dashboard/order" },
+    { name: "Wishlist", icon: <GiRoyalLove />, link: "/dashboard/wishcart" },
+    { name: "Messages", icon: <MdOutlineMessage />, link: "/dashboard/message" },
+    { name: "Address", icon: <FaMapMarkerAlt />, link: "/dashboard/address" },
+    { name: "Campaigns", icon: <GiCampingTent />, link: "/dashboard/camp" },
+    { name: "Support", icon: <MdOutlineSupportAgent />, link: "/dashboard/support" },
     { name: "Logout", icon: <LuLogOut />, link: "/logout" },
   ];
 
