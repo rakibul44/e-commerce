@@ -10,7 +10,25 @@ import Login from "../pages/Login";
 import Register from "../pages/Register";
 import Wishlist from "../pages/Wishlist";
 import Mycart from "../pages/Mycart";
+
 import Notifications from "../pages/Notifications";
+
+import DashboardLayout from "../layout/DashboardLayout";
+import Dashboard from "../dashboard/pages/Dashboard";
+import ProfileUpdate from "../dashboard/pages/ProfileUpdate";
+import PaymentMethod from "../dashboard/pages/PaymentMethod";
+import OrderList from "../dashboard/pages/Orderlist";
+import Wishcart from "../dashboard/pages/WishCart";
+import Address from "../dashboard/pages/Address";
+import Support from "../dashboard/pages/Support";
+import Customer from "../dashboard/pages/Customer";
+import Campaign from "../dashboard/pages/Campaign";
+import Message from "../dashboard/pages/Message";
+import ScrollNotice from "../dashboard/pages/ScrollNotice";
+import ProductList from "../dashboard/pages/ProductList";
+import AddProduct from "../dashboard/pages/AddProduct";
+
+
 
 const mainRoutes = [
     {
@@ -53,12 +71,64 @@ const mainRoutes = [
         path: '/mycart', // Define the contact page route
         element: <Mycart />,
     },
-    {
-        path: '/notification', // Define the contact page route
-        element: <Notifications />,
-    },
-
 ];
+
+const dashboardRoute = [
+    {
+        path:'',
+        element:<Dashboard />,
+    },
+    {
+        path:'profileupdate',
+        element: <ProfileUpdate />
+    },
+    {
+        path:'payment',
+        element: <PaymentMethod />
+    },
+    {
+        path:'order',
+        element: <OrderList />
+    },
+    {
+        path:'wishcart',
+        element: <Wishcart />
+    },
+    {
+        path:'address',
+        element: <Address />
+    },
+    {
+        path:'support',
+        element: <Support />
+    },
+    {
+        path:'customer',
+        element: <Customer />
+    },
+    {
+        path:'camp',
+        element: <Campaign />
+    },
+    {
+        path:'message',
+        element: <Message />
+    },
+    {
+        path:'notice',
+        element: <ScrollNotice />
+    },
+    {
+        path:'productlist',
+        element: <ProductList />
+    },
+    {
+        path:'update',
+        element: <AddProduct />
+    },
+    
+    
+]
 
 const router = createBrowserRouter([
     {
@@ -66,10 +136,12 @@ const router = createBrowserRouter([
         element: <Main />,
         children: mainRoutes, // Pass the mainRoutes as children
     },
-    // {
-    //     path: '/contact', 
-    //     element: <Contact />,
-    // },
+    {
+        path: '/dashboard',
+        element: <DashboardLayout />,
+        children: dashboardRoute, // Pass the mainRoutes as children
+    },
+    
 ]);
 
 export default router;
