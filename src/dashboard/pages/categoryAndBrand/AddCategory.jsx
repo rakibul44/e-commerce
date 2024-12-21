@@ -9,7 +9,7 @@ const AddCategory = () => {
 
 //  handle add category function
   const handleAddCategory = async(data) => {
-
+  
     try{
   
         const res = await createCategory(data);

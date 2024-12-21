@@ -1,10 +1,52 @@
-import React, { useState } from 'react';
+import  { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { GiSelfLove } from 'react-icons/gi';
 import { FaCartPlus } from 'react-icons/fa';
-import winter from '../assets/winter.jpg';
+// import winter from '../assets/winter.jpg';
+import { productApi } from '../redux/apis/productApi';
+import { handleAddToCart } from '../utils/handleAddToCart';
 
 function Product() {
+  const [expandedFilter, setExpandedFilter] = useState(null);
+  const [selectedFilters, setSelectedFilters] = useState({
+    type: [],
+    price: [],
+    size: [],
+    colors: [],
+    brand: [],
+  });
+  const filterParams = new URLSearchParams();
+  // Add filters to query params
+  if (selectedFilters.type.length) {
+    filterParams.append('type', selectedFilters.type.join(','));
+  }
+  if (selectedFilters.price.length) {
+    filterParams.append('price', selectedFilters.price.map((range) => `${range[0]}-${range[1]}`).join(','));
+  }
+  if (selectedFilters.size.length) {
+    filterParams.append('size', selectedFilters.size.join(','));
+  }
+  if (selectedFilters.colors.length) {
+    console.log(selectedFilters.colors)
+    filterParams.append('colors', selectedFilters.colors.join(','));
+  }
+  if (selectedFilters.brand.length) {
+    filterParams.append('brand', selectedFilters.brand.join(','));
+  }
+  console.log("Filter Query String: ", filterParams.toString());
+
+  const { data: productData, isLoading, refetch } = productApi.useGetAllProductsQuery(filterParams.toString());
+
+ useEffect(()=> { refetch()}, [selectedFilters])
+
+  if(isLoading){
+    return <p>Loading..</p>
+  }
+
+  console.log("productData: ", productData)
+
+  const products = productData?.data || [];
+
   const filters = [
     {
       name: 'PRODUCT TYPE',
@@ -40,7 +82,7 @@ function Product() {
     },
     {
       name: 'COLOR',
-      key: 'color',
+      key: 'colors',
       items: [
         { label: 'Red', count: 3 },
         { label: 'Blue', count: 5 },
@@ -58,24 +100,17 @@ function Product() {
     },
   ];
 
-  const products = [
-    { id: 1, name: 'Blouses', price: 10, img: winter, type: 'Blouses', size: 'S', color: 'Red', brand: 'Brand A' },
-    { id: 2, name: 'Denim', price: 20, img: winter, type: 'Denim', size: 'M', color: 'Blue', brand: 'Brand B' },
-    { id: 3, name: 'Dresses', price: 30, img: winter, type: 'Dresses', size: 'L', color: 'Green', brand: 'Brand C' },
-    { id: 4, name: 'Jacket', price: 40, img: winter, type: 'Jacket', size: 'S', color: 'Red', brand: 'Brand A' },
-    { id: 5, name: 'T-Shirt', price: 50, img: winter, type: 'T-Shirt', size: 'M', color: 'Blue', brand: 'Brand B' },
-    { id: 6, name: 'Trousers', price: 60, img: winter, type: 'Trousers', size: 'L', color: 'Green', brand: 'Brand C' },
-  ];
+  // const products = [
+  //   { id: 1, name: 'Blouses', price: 10, img: winter, type: 'Blouses', size: 'S', colors: 'Red', brand: 'Brand A' },
+  //   { id: 2, name: 'Denim', price: 20, img: winter, type: 'Denim', size: 'M', colors: 'Blue', brand: 'Brand B' },
+  //   { id: 3, name: 'Dresses', price: 30, img: winter, type: 'Dresses', size: 'L', colors: 'Green', brand: 'Brand C' },
+  //   { id: 4, name: 'Jacket', price: 40, img: winter, type: 'Jacket', size: 'S', colors: 'Red', brand: 'Brand A' },
+  //   { id: 5, name: 'T-Shirt', price: 50, img: winter, type: 'T-Shirt', size: 'M', colors: 'Blue', brand: 'Brand B' },
+  //   { id: 6, name: 'Trousers', price: 60, img: winter, type: 'Trousers', size: 'L', colors: 'Green', brand: 'Brand C' },
+  // ];
 
-  const [expandedFilter, setExpandedFilter] = useState(null);
-  const [selectedFilters, setSelectedFilters] = useState({
-    type: [],
-    price: [],
-    size: [],
-    color: [],
-    brand: [],
-  });
 
+  
   const toggleFilter = (filterName) => {
     setExpandedFilter((prev) => (prev === filterName ? null : filterName));
   };
@@ -93,14 +128,14 @@ function Product() {
   };
 
   const filteredProducts = products.filter((product) => {
-    const { type, price, size, color, brand } = selectedFilters;
+    const { type, price, size, colors, brand } = selectedFilters;
 
     const matchesType = !type.length || type.includes(product.type);
     const matchesPrice =
       !price.length ||
       price.some((range) => product.price >= range[0] && product.price <= range[1]);
     const matchesSize = !size.length || size.includes(product.size);
-    const matchesColor = !color.length || color.includes(product.color);
+    const matchesColor = !colors.length || colors.includes(product.colors);
     const matchesBrand = !brand.length || brand.includes(product.brand);
 
     return matchesType && matchesPrice && matchesSize && matchesColor && matchesBrand;
@@ -112,7 +147,7 @@ function Product() {
       <aside className="w-full md:w-1/4 p-4 border-r">
         <h2 className="font-bold text-lg mb-4">FILTER BY</h2>
         <button
-          onClick={() => setSelectedFilters({ type: [], price: [], size: [], color: [], brand: [] })}
+          onClick={() => setSelectedFilters({ type: [], price: [], size: [], colors: [], brand: [] })}
           className="text-red-500 mb-2"
         >
           CLEAR ALL
@@ -170,13 +205,27 @@ function Product() {
               {/* Image with overlay */}
               <div className="relative overflow-hidden">
                 <img
-                  src={product.img}
+                  src={product?.images[0]}
                   alt={product.name}
                   className="w-full h-48 object-cover rounded"
                 />
                 <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all">
                   <GiSelfLove className="text-white text-3xl mx-2 cursor-pointer hover:scale-110 transition-transform" />
-                  <FaCartPlus className="text-white text-3xl mx-2 cursor-pointer hover:scale-110 transition-transform" />
+              
+                  <button
+                    className="text-white text-3xl mx-2 cursor-pointer hover:scale-110 transition-transform flex justify-center items-center"
+                    onClick={() =>
+                      handleAddToCart({
+                        product: product?._id,
+                        quantity: 1,
+                        size: product?.sizes[0],
+                        color: product?.colors[0],
+                      })
+                    }
+                  >
+                    <FaCartPlus />
+                  </button>
+
                 </div>
               </div>
               <h4 className="mt-2 font-bold">{product.name}</h4>

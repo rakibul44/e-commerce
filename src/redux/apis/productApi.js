@@ -1,6 +1,7 @@
 import apiService from "../api-service/api-service";
 
 export const productApi = apiService.injectEndpoints({
+
   endpoints: (builder) => ({
     // Post a new product
     postNewProduct: builder.mutation({
@@ -11,13 +12,14 @@ export const productApi = apiService.injectEndpoints({
       }),
     }),
 
-    // Get all products
-    getAllProducts: builder.query({
-      query: () => ({
-        url: `products/all-products`,
-        method: "GET",
-      }),
-    }),
+
+    // Get all products with filters
+   getAllProducts: builder.query({
+     query: (filters) => ({
+         url: `${filters ? `products/all-products?${filters}` : 'products/all-products'}`,
+         method: 'GET',
+     }),
+   }),
 
     // Get product by ID
     getProductById: builder.query({
